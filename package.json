@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "config": "^1.30.0",
+    "discord.js": "^11.3.2",
+    "parse-json": "^4.0.0",
+    "request": "^2.87.0"
+  }
+}
