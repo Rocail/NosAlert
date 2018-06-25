@@ -29,6 +29,10 @@ exports.NosAlert = class NosAlert {
         });
 
         this.client.on("message", (message) => {
+                if (message.author.bot)
+                    return;
+                if (message.channel.name !== "blabla-nostale")
+                    return;
                 let content = message.content.split(" ");
                 console.log(content);
                 if (content[0] === "!a4") {
@@ -61,6 +65,7 @@ exports.NosAlert = class NosAlert {
                 }
             }
         );
+
         this.client.login(token)
             .then(() => {
                 console.log("connected !");
@@ -117,7 +122,6 @@ exports.NosAlert = class NosAlert {
                     this.alert("@everyone RAID DEMON");
                 }
                 this.status = newStatus;
-                console.log("still alive !");
             })
             .catch(err => console.log(err));
     }
