@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "start": "set TOKEN=NDUxMTEwMjQ2MTY2MDM2NDkw.De9LUw.-iFxBcmSSgGwwha79qc2kplPVwA && node bot.js",
-    "dev": "set TOKEN=Mjk3MDkxMDQzNTUwMTY3MDQw.DhKlJA.Heh7dbdIkZNf4cjGtWvtfO7F9iY && node bot.js"
+    "start": "node bot.js"
   },
   "dependencies": {
     "config": "^1.30.0",
