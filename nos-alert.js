@@ -43,24 +43,7 @@ exports.NosAlert = class NosAlert {
                 console.log(content);
                 if (content[0] === "!a4") {
                     if (content.length === 2) {
-                        if (content[1] === "on") {
-                            if (this.channelIds.includes(message.channel.id)) {
-                                message.channel.send("This channel is already registered !");
-                            } else {
-                                message.channel.send("Channel successfully registered");
-                                this.channelIds.push(message.channel.id);
-                                console.log(this.channelIds);
-                            }
-                        } else if (content[1] === "off") {
-                            if (this.channelIds.includes(message.channel.id)) {
-                                let position = this.channelIds.indexOf(message.channel.id);
-                                this.channelIds.splice(position, 1);
-                                message.channel.send("Channel successfully unregistered");
-                                console.log(this.channelIds);
-                            } else {
-                                message.channel.send("This channel is not registered !");
-                            }
-                        } else if (content[1] === "percents") {
+                        if (content[1] === "percents") {
                             message.channel.send(this.getPercents());
                         } else if (content[1] === "help") {
                             this.help(message.channel.id);
@@ -90,8 +73,32 @@ exports.NosAlert = class NosAlert {
 
 
     getPercents() {
-        let message = "Angels percents: " + this.status.angels.progress + "%\n"
-            + "Demons percents: " + this.status.demons.progress + "%";
+        let message = {
+            embed: {
+                color: 3447003,
+                author: {
+                    name: this.client.user.username,
+                    icon_url: this.client.user.avatarURL
+                },
+                title: "Status de l'act4",
+                fields: [
+                    {
+                        name: "Ange",
+                        value: this.status.angels.eventType === "0" ? this.status.angels.progress + "%" : "Raid !\n"
+                        + "Début : " + new Date(Math.floor(this.status.currentDate / 1000) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '') + "\n"
+                        + "Boss  : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 30) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '') + "\n"
+                        + "Fin   : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 60) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '')
+                    },
+                    {
+                        name: "Démon",
+                        value: this.status.demons.eventType === "0" ? this.status.demons.progress + "%" : "Raid !\n"
+                            + "Début : " + new Date(Math.floor(this.status.currentDate / 1000) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '') + "\n"
+                            + "Boss  : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 30) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '') + "\n"
+                            + "Fin   : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 60) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '')
+                    },
+                ]
+            }
+        };
         return message;
     }
 
