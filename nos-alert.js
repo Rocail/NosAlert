@@ -107,6 +107,7 @@ exports.NosAlert = class NosAlert {
     }
 
     alert(message) {
+        console.log(ALERT);
         for (let channel of this.client.channels) {
             if (channel.name === "blabla-nostale" || channel.name === "act4") {
                 this.client.channels.get(this.channelIds[count]).send(message);
