@@ -41,8 +41,8 @@
       <file leaf-file-name="nos-alert.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/nos-alert.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="109" column="43" lean-forward="true" selection-start-line="109" selection-start-column="43" selection-end-line="109" selection-end-column="43" />
+            <state relative-caret-position="111">
+              <caret line="39" column="95" selection-start-line="39" selection-start-column="95" selection-end-line="39" selection-end-column="95" />
             </state>
           </provider>
         </entry>
@@ -230,12 +230,12 @@
       <option name="presentableId" value="Default" />
       <updated>1527624378314</updated>
       <workItem from="1527624381389" duration="15773000" />
-      <workItem from="1529941898660" duration="10118000" />
+      <workItem from="1529941898660" duration="11984000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25891000" />
+    <option name="totallyTimeSpent" value="27757000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -355,8 +355,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nos-alert.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="109" column="43" lean-forward="true" selection-start-line="109" selection-start-column="43" selection-end-line="109" selection-end-column="43" />
+        <state relative-caret-position="111">
+          <caret line="39" column="95" selection-start-line="39" selection-start-column="95" selection-end-line="39" selection-end-column="95" />
         </state>
       </provider>
     </entry>

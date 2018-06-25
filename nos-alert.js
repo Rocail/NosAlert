@@ -37,7 +37,7 @@ exports.NosAlert = class NosAlert {
         this.client.on("message", (message) => {
                 if (message.author.bot)
                     return;
-                if (message.channel.name !== "blabla-nostale")
+                if (message.channel.name !== "blabla-nostale" && message.channel.name !== "act4")
                     return;
                 let content = message.content.split(" ");
                 console.log(content);
@@ -171,7 +171,16 @@ exports.NosAlert = class NosAlert {
                         },
                         {
                             name: "Début:",
-                            value: (new Date(Math.floor(1529952139376 / 1000) * 1000))
+                            value: new Date(Math.floor(this.status.currentDate / 1000) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '')
+                        },
+                        {
+                            name: "Boss:",
+                            value: new Date(Math.floor(this.status.currentDate / 1000 + 60 * 30) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '')
+                        },
+
+                        {
+                            name: "Fin:",
+                            value: new Date(Math.floor(this.status.currentDate / 1000 + 60 * 60) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '')
                         },
                     ]
                 }
