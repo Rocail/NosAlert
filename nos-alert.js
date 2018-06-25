@@ -107,18 +107,19 @@ exports.NosAlert = class NosAlert {
     }
 
     alert(message) {
-        let count = this.channelIds.length;
-        while (count--) {
-            this.client.channels.get(this.channelIds[count]).send(message);
+        for (let channel of this.client.channels) {
+            if (channel.name === "blabla-nostale" || channel.name === "act4") {
+                this.client.channels.get(this.channelIds[count]).send(message);
+            }
         }
     }
 
     checkStatus() {
         this.getStatus()
             .then((newStatus) => {
-                if (newStatus.angels.eventType === 3 && this.status.angels.eventType !== 3) {
+                if (newStatus.angels.eventType.equals("3") && !this.status.angels.eventType.equals("3")) {
                     this.alert("@everyone RAID ANGE");
-                } else if (newStatus.demons.eventType === 3 && this.status.demons.eventType !== 3) {
+                } else if (newStatus.demons.eventType.equals("3") && this.status.demons.eventType.equals("3")) {
                     this.alert("@everyone RAID DEMON");
                 }
                 this.status = newStatus;
