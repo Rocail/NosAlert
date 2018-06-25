@@ -1,9 +1,10 @@
 const NosAlert = require("./nos-alert").NosAlert;
 
-
-if (this.process.env.TOKEN === "undefined") {
-    throw new Error("no token found");
+let token = process.env.TOKEN;
+if (typeof(token) === "undefined") {
+    token = require("./config/development").token;
 }
-let bot = new NosAlert(process.env.TOKEN);
+
+let bot = new NosAlert(token);
 
 bot.start();

@@ -4,12 +4,12 @@ const parseJson = require("parse-json");
 
 const initStatus = {
     angels: {
-        progress: 0,
-        eventType: 0,
+        progress: "0",
+        eventType: "0",
     },
     demons: {
-        progress: 0,
-        eventType: 0,
+        progress: "0",
+        eventType: "0",
     },
     init: true
 };
@@ -107,7 +107,7 @@ exports.NosAlert = class NosAlert {
     }
 
     alert(message) {
-        console.log(ALERT);
+        console.log("ALERT");
         for (let channel of this.client.channels) {
             if (channel.name === "blabla-nostale" || channel.name === "act4") {
                 this.client.channels.get(this.channelIds[count]).send(message);
@@ -118,10 +118,14 @@ exports.NosAlert = class NosAlert {
     checkStatus() {
         this.getStatus()
             .then((newStatus) => {
-                if (newStatus.angels.eventType ==="3"  && this.status.angels.eventType !== "3") {
-                    this.alert("@everyone RAID ANGE");
+                if (newStatus.angels.eventType === "3"  && this.status.angels.eventType !== "3") {
+                    if (!this.status.init)
+                        this.alert("@everyone RAID ANGE");
                 } else if (newStatus.demons.eventType !== "3" && this.status.demons.eventType !== "3") {
-                    this.alert("@everyone RAID DEMON");
+                    if (this.status.init)
+                        this.status.init = false;
+                    else
+                        this.alert("@everyone RAID DEMON");
                 }
                 this.status = newStatus;
             })
