@@ -20,12 +20,10 @@ const clan = Object.freeze({
     DEMON: "Démon",
 });
 
-const initChannelIds = [];
 
 exports.NosAlert = class NosAlert {
     constructor(token) {
         this.status = initStatus;
-        this.channelIds = initChannelIds;
         this.client = new Discord.Client();
 
         console.log("token recieved : " + token);
@@ -45,12 +43,12 @@ exports.NosAlert = class NosAlert {
                     if (content.length === 2) {
                         if (content[1] === "percents") {
                             message.channel.send(this.getPercents());
-                        } else if (content[1] === "help") {
+                        } else {
                             this.help(message.channel.id);
                         }
+                    } else {
+                        this.help(message.channel.id);
                     }
-                } else if (content[0] === "!help") {
-                    this.help(message.channel.id)
                 }
             }
         );
@@ -64,37 +62,46 @@ exports.NosAlert = class NosAlert {
     }
 
     help(channelId) {
-        let helpMessage =
-            "!a4 on -> active les alertes en cas de raid sur ce canal\n" +
-            "!a4 off -> désactive les alertes en cas de raid sur ce canal\n" +
-            "!a4 percents -> affiche les pourcentages actuels";
+        let helpMessage = {
+            embed: {
+                color: 3447003,
+                title: "Liste des commandes du bot:",
+                fields: [
+                    {
+                        name: "!a4 percents",
+                        value: "affiche l'état actuel de l'act 4"
+                    },
+                    {
+                        name: "!a4 help",
+                        value: "affiche ce message d'aide"
+                    },
+                ]
+            }
+        };
         this.client.channels.get(channelId).send(helpMessage);
     }
 
 
     getPercents() {
+        console.log(this.status);
         let message = {
             embed: {
                 color: 3447003,
-                author: {
-                    name: this.client.user.username,
-                    icon_url: this.client.user.avatarURL
-                },
-                title: "Status de l'act4",
+                title: "Status de l'act4:",
                 fields: [
                     {
                         name: "Ange",
                         value: this.status.angels.eventType === "0" ? this.status.angels.progress + "%" : "Raid !\n"
-                        + "Début : " + new Date(Math.floor(this.status.currentDate / 1000) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '') + "\n"
-                        + "Boss  : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 30) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '') + "\n"
-                        + "Fin   : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 60) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '')
+                            + "```Début: " + new Date(Math.floor(this.status.currentDate / 1000) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '') + "\n"
+                            + "Boss : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 30) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '') + "\n"
+                            + "Fin  : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 60) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '') + "```"
                     },
                     {
                         name: "Démon",
                         value: this.status.demons.eventType === "0" ? this.status.demons.progress + "%" : "Raid !\n"
-                            + "Début : " + new Date(Math.floor(this.status.currentDate / 1000) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '') + "\n"
-                            + "Boss  : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 30) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '') + "\n"
-                            + "Fin   : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 60) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '')
+                            + "Début : " + new Date(Math.floor(this.status.currentDate / 1000) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '') + "\n"
+                            + "Boss  : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 30) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '') + "\n"
+                            + "Fin   : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 60) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '')
                     },
                 ]
             }
@@ -115,6 +122,8 @@ exports.NosAlert = class NosAlert {
                 } else if (newStatus.demons.eventType === "3" && this.status.demons.eventType !== "3") {
                     this.status = newStatus;
                     this.alert(clan.DEMON);
+                } else {
+                    this.status = newStatus;
                 }
             })
             .catch(err => console.log(err));
@@ -122,11 +131,11 @@ exports.NosAlert = class NosAlert {
 
     getStatus(serverNumber = 4) {
         return new Promise((resolve, reject) => {
-            // let url = "https://glaca.nostale.club/api/fr/" + serverNumber;
-            let url = "https://glaca.nostale.club/api/de/2/";
+            let url = "https://glaca.nostale.club/api/fr/" + serverNumber;
 
             request(url, (err, res, body) => {
                 if (err !== null) {
+                    console.log(err);
                     reject(err);
                 } else {
                     if ((res && res.statusCode) === 200) {
@@ -146,8 +155,7 @@ exports.NosAlert = class NosAlert {
         for (let channel of this.client.channels) {
             if (channel[1].type === "text") {
                 console.log(channel[1].name);
-//                 if (channel[1].name === "blabla-nostale" || channel[1].name === "act4") {
-                if (channel[1].name === "act4") {
+                if (channel[1].name === "blabla-nostale" || channel[1].name === "act4") {
                     channel[1].send(this.displayStatus(clan));
                 }
             }
@@ -166,10 +174,6 @@ exports.NosAlert = class NosAlert {
             {
                 embed: {
                     color: 3447003,
-                    author: {
-                        name: this.client.user.username,
-                        icon_url: this.client.user.avatarURL
-                    },
                     title: "Raid act4 !",
                     fields: [
                         {
@@ -178,16 +182,16 @@ exports.NosAlert = class NosAlert {
                         },
                         {
                             name: "Début:",
-                            value: new Date(Math.floor(this.status.currentDate / 1000) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '')
+                            value: new Date(Math.floor(this.status.currentDate / 1000) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '')
                         },
                         {
                             name: "Boss:",
-                            value: new Date(Math.floor(this.status.currentDate / 1000 + 60 * 30) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '')
+                            value: new Date(Math.floor(this.status.currentDate / 1000 + 60 * 30) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '')
                         },
 
                         {
                             name: "Fin:",
-                            value: new Date(Math.floor(this.status.currentDate / 1000 + 60 * 60) * 1000).toLocaleString("fr", { timeZone: 'Europe/Paris' }).replace(/.+ /g, '')
+                            value: new Date(Math.floor(this.status.currentDate / 1000 + 60 * 60) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '')
                         },
                     ]
                 }
