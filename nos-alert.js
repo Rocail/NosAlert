@@ -87,7 +87,7 @@ exports.NosAlert = class NosAlert {
         let message = {
             embed: {
                 color: 3447003,
-                title: "Status de l'act4:",
+                title: "Statut de l'act4 :",
                 fields: [
                     {
                         name: "Ange",
@@ -137,7 +137,7 @@ exports.NosAlert = class NosAlert {
                 if (err !== null) {
                     console.log(err);
                     reject(err);
-                } else {
+                } else {status
                     if ((res && res.statusCode) === 200) {
                         resolve(parseJson(body));
                     } else {
