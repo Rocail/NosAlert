@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node bot.js"
+    "start": "npm install && node bot.js"
   },
   "dependencies": {
     "config": "^1.30.0",

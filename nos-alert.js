@@ -137,7 +137,7 @@ exports.NosAlert = class NosAlert {
                 if (err !== null) {
                     console.log(err);
                     reject(err);
-                } else {status
+                } else {
                     if ((res && res.statusCode) === 200) {
                         resolve(parseJson(body));
                     } else {
