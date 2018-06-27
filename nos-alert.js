@@ -87,7 +87,7 @@ exports.NosAlert = class NosAlert {
         let message = {
             embed: {
                 color: 3447003,
-                title: "Status de l'act4:",
+                title: "Statut de l'act4 :",
                 fields: [
                     {
                         name: "Ange",
@@ -154,27 +154,22 @@ exports.NosAlert = class NosAlert {
         console.log("ALERT");
         for (let channel of this.client.channels) {
             if (channel[1].type === "text") {
-                console.log(channel[1].name);
                 if (channel[1].name === "blabla-nostale" || channel[1].name === "act4") {
-                    channel[1].send(this.displayStatus(clan));
+                    let role = channel[1].guild.roles.find("name", "Chikungunya (D-13)");
+                    let id = role ? role.id : undefined;
+                    channel[1].send(this.displayStatus(clan, id));
                 }
             }
         }
     }
 
-    displayStatus(clan) {
-        let status;
-        console.log(this.status);
-        if (clan === clan.ANGE) {
-            status = this.status.angels;
-        } else {
-            status = this.status.demons;
-        }
+    displayStatus(clan, id) {
         return (
             {
                 embed: {
                     color: 3447003,
                     title: "Raid act4 !",
+                    description: id ? "<@&" + id + ">" : "Un nouveau raid act4 a commencé !",
                     fields: [
                         {
                             name: "Côté",

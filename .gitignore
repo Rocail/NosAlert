@@ -62,5 +62,5 @@ typings/
 
 # editor config
 .idea
-
+.idea/
 config
