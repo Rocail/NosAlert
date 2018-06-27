@@ -40,15 +40,7 @@ exports.NosAlert = class NosAlert {
                 let content = message.content.split(" ");
                 console.log(content);
                 if (content[0] === "!a4") {
-                    if (content.length === 2) {
-                        if (content[1] === "percents") {
-                            message.channel.send(this.getPercents());
-                        } else {
-                            this.help(message.channel.id);
-                        }
-                    } else {
-                        this.help(message.channel.id);
-                    }
+                    message.channel.send(this.getPercents());
                 }
             }
         );
