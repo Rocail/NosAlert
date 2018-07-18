@@ -83,14 +83,14 @@ exports.NosAlert = class NosAlert {
                 fields: [
                     {
                         name: "Ange",
-                        value: this.status.angels.eventType === "0" ? this.status.angels.progress + "%" : "Raid !\n"
+                        value: this.status.angels.eventType === "0" ? this.status.angels.progress + "%" : "\:penguin: Raid ! \:penguin: \n"
                             + "```Début: " + new Date(Math.floor(this.status.currentDate / 1000) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '') + "\n"
                             + "Boss : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 30) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '') + "\n"
                             + "Fin  : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 60) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '') + "```"
                     },
                     {
                         name: "Démon",
-                        value: this.status.demons.eventType === "0" ? this.status.demons.progress + "%" : "Raid !\n"
+                        value: this.status.demons.eventType === "0" ? this.status.demons.progress + "%" : "\:penguin: Raid ! \:penguin:\n"
                             + "Début : " + new Date(Math.floor(this.status.currentDate / 1000) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '') + "\n"
                             + "Boss  : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 30) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '') + "\n"
                             + "Fin   : " + new Date(Math.floor(this.status.currentDate / 1000 + 60 * 60) * 1000).toLocaleString("fr", {timeZone: 'Europe/Paris'}).replace(/.+ /g, '')
@@ -163,7 +163,7 @@ exports.NosAlert = class NosAlert {
             {
                 embed: {
                     color: 3447003,
-                    title: "Raid act4 !",
+                    title: "\:penguin: Raid act4 ! \:penguin:",
                     description: "Un nouveau raid a commencé !",
                     fields: [
                         {
