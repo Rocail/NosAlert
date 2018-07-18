@@ -148,20 +148,23 @@ exports.NosAlert = class NosAlert {
             if (channel[1].type === "text") {
                 if (channel[1].name === "blabla-nostale" || channel[1].name === "act4") {
                     let role = channel[1].guild.roles.find("name", "Chikungunya (D-13)");
-                    let id = role ? role.id : undefined;
-                    channel[1].send(this.displayStatus(clan, id));
+                    if (role !== null) {
+                        channel[1].send(`\:penguin: ${role} \:penguin:`, this.displayStatus(clan));
+                    } else {
+                        channel[1].send(this.displayStatus(clan));
+                    }
                 }
             }
         }
     }
 
-    displayStatus(clan, id) {
+    displayStatus(clan) {
         return (
             {
                 embed: {
                     color: 3447003,
                     title: "Raid act4 !",
-                    description: id ? "<@&" + id + ">" : "Un nouveau raid act4 a commencé !",
+                    description: "Un nouveau raid a commencé !",
                     fields: [
                         {
                             name: "Côté",
@@ -184,15 +187,5 @@ exports.NosAlert = class NosAlert {
                 }
             }
         )
-    }
-
-    dateObjToStr(obj, spacing = true) {
-        let str = ""
-            + ("0" + obj.getDate()).slice(-2) + "/"
-            + ("0" + (obj.getMonth() + 1)).slice(-2) + "/"
-            + obj.getFullYear() + (spacing ? "\t" : " ")
-            + ("0" + obj.getHours()).slice(-2) + ":"
-            + ("0" + obj.getMinutes()).slice(-2);
-        return str;
     }
 };
