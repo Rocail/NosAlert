@@ -53,27 +53,6 @@ exports.NosAlert = class NosAlert {
             .catch(err => console.log(err));
     }
 
-    help(channelId) {
-        let helpMessage = {
-            embed: {
-                color: 3447003,
-                title: "Liste des commandes du bot:",
-                fields: [
-                    {
-                        name: "!a4 percents",
-                        value: "affiche l'état actuel de l'act 4"
-                    },
-                    {
-                        name: "!a4 help",
-                        value: "affiche ce message d'aide"
-                    },
-                ]
-            }
-        };
-        this.client.channels.get(channelId).send(helpMessage);
-    }
-
-
     getPercents() {
         console.log(this.status);
         let message = {
